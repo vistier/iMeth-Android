@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:arc="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,8 +15,7 @@
         android:layout_height="wrap_content"
         android:text="拖动红点!" />
 
-    <cn.imeth.android.view.DraggableFlagView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <cn.imeth.android.view.DraggableFlagView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/flag_view"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -35,13 +35,41 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
+        android:id="@+id/ImageSliderBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ImageSlider"
-        android:id="@+id/ImageSliderBtn"
-        android:layout_marginTop="48dp"
-        android:layout_below="@+id/font"
+        android:layout_alignEnd="@+id/font"
         android:layout_alignRight="@+id/font"
-        android:layout_alignEnd="@+id/font" />
+        android:layout_below="@+id/font"
+        android:layout_marginTop="48dp"
+        android:text="ImageSlider" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:orientation="vertical">
+
+        <com.capricorn.RayMenu
+            android:id="@+id/ray_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
+
+        <com.capricorn.ArcMenu
+            android:id="@+id/arc_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.capricorn.ArcMenu
+            android:id="@+id/arc_menu_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            arc:childSize="@dimen/menuChildSize"
+            arc:fromDegrees="@dimen/menuFromDegrees"
+            arc:toDegrees="@dimen/menuToDegrees" />
+
+    </LinearLayout>
 
 </RelativeLayout>
