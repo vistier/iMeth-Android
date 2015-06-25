@@ -32,7 +32,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/next_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/play_btn"
@@ -40,7 +40,7 @@
         android:layout_toStartOf="@+id/play_btn" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/pre_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/play_btn"
