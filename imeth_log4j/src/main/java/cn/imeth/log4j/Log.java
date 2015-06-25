@@ -5,40 +5,55 @@ import org.apache.log4j.Logger;
 
 public class Log {
 
+    /**
+     * @see #init(String, String, Level, boolean, boolean)
+     */
     public static void initNotUseFile(Level level) {
-        init("",level,false);
+        init("iMeth", "", level, false, true);
     }
 
+    /**
+     * @see #init(String, String, Level, boolean, boolean)
+     */
+    public static void initNotUseFile(String name, Level level) {
+        init(name, "", level, false, true);
+    }
+
+    /**
+     * @see #init(String, String, Level, boolean, boolean)
+     */
     public static void init(String logFilePath) {
-        init(logFilePath, Level.DEBUG, true);
+        init(logFilePath, Level.DEBUG);
     }
 
-    public static void init(String logFilePath, Level level) {
-        init(logFilePath, level, true);
+    /**
+     * @see #init(String, String, Level, boolean, boolean)
+     */
+    public static void init(String logFilePath, Level rootLevel) {
+        init("iMeht", logFilePath, rootLevel, true, true);
     }
 
-    public static void init(String logFilePath, Level rootLevel, boolean isUseFileAppender) {
-        final LogConfigurator logConfigurator = new LogConfigurator();
-
-        logConfigurator.setFileName(logFilePath);
-        // Set the root log level
-        logConfigurator.setLevel(rootLevel);
-        // Set log level of a specific logger
-        logConfigurator.setUseFileAppender(isUseFileAppender);
-        logConfigurator.configure();
-    }
-
-    public static void init(String loggerName, String logFilePath, Level rootLevel, boolean isUseFileAppender) {
-        LogConfigurator logConfigurator = new LogConfigurator();
+    /**
+     * 初始化日志文件控件
+     *
+     * @param loggerName          获取Logger的Name
+     * @param logFilePath         日志文件保存位置
+     * @param rootLevel           保存日志文件级别
+     * @param isUseFileAppender   是否启动保存到外存文件中
+     * @param isUseLogcatAppender 是否输出到logcat中
+     */
+    public static void init(String loggerName, String logFilePath, Level rootLevel, boolean isUseFileAppender, boolean isUseLogcatAppender) {
+        LogConfigurator configurator = new LogConfigurator();
         Logger logger = Logger.getLogger(loggerName);
 
-        logConfigurator.setLogger(logger);
-        logConfigurator.setFileName(logFilePath);
+        configurator.setLogger(logger);
+        configurator.setFileName(logFilePath);
         // Set the root log level
-        logConfigurator.setLevel(rootLevel);
+        configurator.setLevel(rootLevel);
         // Set log level of a specific logger
-        logConfigurator.setUseFileAppender(isUseFileAppender);
-        logConfigurator.configure();
+        configurator.setUseFileAppender(isUseFileAppender);
+        configurator.setUseLogcatAppender(isUseLogcatAppender);
+        configurator.configure();
     }
 
 

@@ -37,7 +37,7 @@ public class LogConfigurator {
     private static String LOG_CAT_PATTERN = "%m%n";
 
     private Level level = Level.DEBUG;
-    private String fileName = "android-log4j.log";
+    private String fileName = "imeth.log";
     private Logger logger = Logger.getRootLogger();
 
     private int maxBackupSize = 5;
@@ -47,7 +47,7 @@ public class LogConfigurator {
     /**
      * 是否使用Android的LogCat输出源
      */
-    private boolean useLogCatAppender = true;
+    private boolean useLogcatAppender = true;
     /**
      * 是否使用保存文件记录的输出源
      */
@@ -116,7 +116,7 @@ public class LogConfigurator {
             configureFileAppender();
         }
 
-        if (isUseLogCatAppender()) {
+        if (isUseLogcatAppender()) {
             configureLogCatAppender();
         }
 
@@ -270,17 +270,17 @@ public class LogConfigurator {
      *
      * @return True, if LogcatAppender should be used
      */
-    public boolean isUseLogCatAppender() {
-        return useLogCatAppender;
+    public boolean isUseLogcatAppender() {
+        return useLogcatAppender;
     }
 
     /**
      * If set to true, LogCatAppender will be used for logging
      *
-     * @param useLogCatAppender If true, LogCatAppender will be used for logging
+     * @param useLogcatAppender If true, LogCatAppender will be used for logging
      */
-    public void setUseLogCatAppender(final boolean useLogCatAppender) {
-        this.useLogCatAppender = useLogCatAppender;
+    public void setUseLogcatAppender(final boolean useLogcatAppender) {
+        this.useLogcatAppender = useLogcatAppender;
     }
 
     public void setResetConfiguration(boolean resetConfiguration) {
