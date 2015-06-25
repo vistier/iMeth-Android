@@ -1,6 +1,8 @@
 package cn.imeth.app;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +19,7 @@ import cn.imeth.android.utils.Androids;
 import cn.imeth.android.utils.TypefaceUtils;
 import cn.imeth.android.view.DraggableFlagView;
 import cn.imeth.app.image.slider.ImageSliderActivity;
+import cn.imeth.video.play.VideoPlayActivity;
 
 
 public class MainActivity extends ImethActivity {
@@ -68,6 +71,12 @@ public class MainActivity extends ImethActivity {
                 fontTextView.setText(text);
                 fontTextView.setTextColor(Color.RED);
                 TypefaceUtils.setFontAwesome(fontTextView);
+
+                String url = "http://pl.youku.com/playlist/m3u8?vid=315461339&type=mp4&ts=1434700493&keyframe=0&ep=eiaXHk6NVsoJ5yvejT8bYynkIXFcXP0L8xuDgNFhCdQiS%2Bq6&sid=843470049281512456e6c&token=6325&ctype=12&ev=1&oip=2016043919";
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(url), "video/mp4");
+                startActivity(intent);
             }
         });
 
@@ -99,6 +108,13 @@ public class MainActivity extends ImethActivity {
                 }
             });// Add a menu item
         }
+
+        findViewById(R.id.video_play_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VideoPlayActivity.startActivity(MainActivity.this);
+            }
+        });
 
     }
 

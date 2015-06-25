@@ -1,1 +1,1 @@
-include ':app', ':phoneview', ':imeth', ':volley'
+include ':app', ':phoneview', ':imeth', ':volley', ':arcmenu', ':imeth_video_play'

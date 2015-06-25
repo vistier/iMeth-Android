@@ -19,9 +19,10 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -41,6 +42,10 @@
         </activity>
 
         <activity android:name=".image.slider.ImageSliderActivity" />
+
+        <activity android:name="cn.imeth.video.play.VideoPlayActivity"
+            android:configChanges="orientation|screenSize"
+            />
 
     </application>
 

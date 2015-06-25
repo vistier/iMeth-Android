@@ -50,7 +50,6 @@ public abstract class BaseSliderView {
 
     private String mDescription;
 
-    //private Picasso mPicasso;
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
     /**
