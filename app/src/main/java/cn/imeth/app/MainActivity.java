@@ -116,6 +116,13 @@ public class MainActivity extends ImethActivity {
             }
         });
 
+        findViewById(R.id.camera_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SquareCameraActivity.startActivity(MainActivity.this);
+            }
+        });
+
     }
 
     @Override

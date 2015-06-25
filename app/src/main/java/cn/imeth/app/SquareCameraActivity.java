@@ -1,6 +1,7 @@
 package cn.imeth.app;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -15,6 +16,12 @@ import com.desmond.squarecamera.ImageUtility;
 
 public class SquareCameraActivity extends Activity {
 
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, SquareCameraActivity.class);
+
+        context.startActivity(intent);
+    }
+
     private static final int REQUEST_CAMERA = 0;
 
     private Point mSize;
@@ -22,7 +29,7 @@ public class SquareCameraActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(0);
+        setContentView(R.layout.square_camera_activity);
 
         Display display = getWindowManager().getDefaultDisplay();
         mSize = new Point();
@@ -43,7 +50,6 @@ public class SquareCameraActivity extends Activity {
     }
 
     public void launchCamera(View view) {
-        Intent startCustomCameraIntent = new Intent(this, CameraActivity.class);
-        startActivityForResult(startCustomCameraIntent, REQUEST_CAMERA);
+        CameraActivity.startActivityForRe(this, REQUEST_CAMERA);
     }
 }

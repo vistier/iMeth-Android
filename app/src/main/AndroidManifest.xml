@@ -50,6 +50,9 @@
             android:configChanges="orientation|screenSize"
             />
 
+        <activity android:name=".SquareCameraActivity" />
+        <activity android:name="com.desmond.squarecamera.CameraActivity"/>
+
     </application>
 
 </manifest>

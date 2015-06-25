@@ -82,5 +82,14 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/camera_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ImageSliderBtn"
+        android:layout_toEndOf="@+id/ImageSliderBtn"
+        android:layout_toRightOf="@+id/ImageSliderBtn"
+        android:text="方形相机" />
+
 
 </RelativeLayout>

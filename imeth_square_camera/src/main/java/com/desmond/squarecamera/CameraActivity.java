@@ -1,16 +1,21 @@
 package com.desmond.squarecamera;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends Activity {
+
+    public static void startActivityForRe(Activity activity, int requestCode) {
+        Intent intent = new Intent(activity, CameraActivity.class);
+        activity.startActivityForResult(intent, requestCode);
+    }
 
     public static final String TAG = CameraActivity.class.getSimpleName();
 
@@ -29,15 +34,15 @@ public class CameraActivity extends AppCompatActivity {
             decorView.setSystemUiVisibility(uiOptions);
         }
 
-        if(getSupportActionBar() != null){
-            getSupportActionBar().hide();    
+        if(getActionBar() != null){
+            getActionBar().hide();
         }
         
         getWindow().setBackgroundDrawable(null);
         setContentView(R.layout.activity_camera);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager()
+            getFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, CameraFragment.newInstance())
                     .commit();
@@ -58,6 +63,6 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     public void onCancel(View view) {
-        getSupportFragmentManager().popBackStack();
+        getFragmentManager().popBackStack();
     }
 }
