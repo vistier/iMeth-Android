@@ -36,6 +36,6 @@ def makeJar(String target, String classDir) {
 }
 
 //新建一个task,名为buildLib,依赖build(build是一个自带的task)
-task buildLib(dependsOn: ['build']) {
-    makeJar("volley.jar", "build/intermediates/classes/release")
-}
+//task buildLib(dependsOn: ['build']) {
+//    makeJar("volley.jar", "build/intermediates/classes/release")
+//}
