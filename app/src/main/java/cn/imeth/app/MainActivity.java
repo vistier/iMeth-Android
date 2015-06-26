@@ -11,10 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.capricorn.ArcMenu;
 import com.capricorn.RayMenu;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cn.imeth.android.activity.ImethActivity;
+import cn.imeth.android.log.Log;
 import cn.imeth.android.utils.Androids;
 import cn.imeth.android.utils.TypefaceUtils;
 import cn.imeth.android.view.DraggableFlagView;
@@ -32,10 +41,15 @@ public class MainActivity extends ImethActivity {
             R.drawable.composer_thought,
             R.drawable.composer_with };
 
+    private RequestQueue requestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.start();
 
         final DraggableFlagView draggableFlagView = (DraggableFlagView) findViewById(R.id.flag_view);
 
@@ -159,6 +173,30 @@ public class MainActivity extends ImethActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(MainActivity.this, "position:" + position, Toast.LENGTH_SHORT).show();
+
+                    JSONObject params = new JSONObject();
+
+                    try {
+                        params = new JSONObject("{\"userID\":\"chenchaowen\",\"pageSize\":5,\"lastUpdateStamp\":\"1433407267\"}");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    JsonObjectRequest request = new JsonObjectRequest("http://demo.tradeicloud.com/QC/get/getRemarkList", params, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("imeth", response.toString());
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                            Log.i("imeth", error.getMessage());
+                        }
+                    });
+
+                    requestQueue.add(request);
+
                 }
             });
         }
