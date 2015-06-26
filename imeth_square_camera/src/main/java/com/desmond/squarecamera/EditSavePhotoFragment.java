@@ -24,8 +24,7 @@ public class EditSavePhotoFragment extends Fragment {
     public static final String COVER_HEIGHT_KEY = "cover_height";
     public static final String IMAGE_HEIGHT_KEY = "image_height";
 
-    public static Fragment newInstance(byte[] bitmapByteArray, int rotation,
-                                       int coverHeight, int imageViewHeight) {
+    public static Fragment newInstance(byte[] bitmapByteArray, int rotation, int coverHeight, int imageViewHeight) {
         Fragment fragment = new EditSavePhotoFragment();
 
         Bundle args = new Bundle();
@@ -38,7 +37,8 @@ public class EditSavePhotoFragment extends Fragment {
         return fragment;
     }
 
-    public EditSavePhotoFragment() {}
+    public EditSavePhotoFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,14 +54,18 @@ public class EditSavePhotoFragment extends Fragment {
         int imageViewHeight = getArguments().getInt(IMAGE_HEIGHT_KEY);
         byte[] data = getArguments().getByteArray(BITMAP_KEY);
 
-        final View topCoverView = view.findViewById(R.id.cover_top_view);
-        final View btnCoverView = view.findViewById(R.id.cover_bottom_view);
         final ImageView photoImageView = (ImageView) view.findViewById(R.id.photo);
 
-        photoImageView.getLayoutParams().height = imageViewHeight;
-        topCoverView.getLayoutParams().height = coverHeight;
-        btnCoverView.getLayoutParams().height = coverHeight;
+        final View topCoverView = view.findViewById(R.id.cover_top_view);
+        final View btnCoverView = view.findViewById(R.id.cover_bottom_view);
 
+        if (coverHeight != 0) {
+            topCoverView.getLayoutParams().height = coverHeight;
+            btnCoverView.getLayoutParams().height = coverHeight;
+        }
+
+
+        photoImageView.getLayoutParams().height = imageViewHeight;
         rotatePicture(rotation, data, photoImageView);
 
         view.findViewById(R.id.save_photo).setOnClickListener(new View.OnClickListener() {
@@ -95,7 +99,7 @@ public class EditSavePhotoFragment extends Fragment {
         ImageView photoImageView = (ImageView) getView().findViewById(R.id.photo);
 
         Bitmap bitmap = ((BitmapDrawable) photoImageView.getDrawable()).getBitmap();
-        Uri photoUri = ImageUtility.savePicture(getActivity(), bitmap);
+        Uri photoUri = ImageUtility.savePicture(getActivity(), bitmap, getActivity().getIntent().getBooleanExtra(CameraActivity.INTENT_IS_SQUARE_PHOTO, true));
 
         ((CameraActivity) getActivity()).returnPhotoUri(photoUri);
     }

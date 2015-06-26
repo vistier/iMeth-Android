@@ -46,6 +46,7 @@ public class ImethApplication extends Application {
                     defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
                 }
 
+                // 单独处理的代码
             }
         });
 

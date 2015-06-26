@@ -52,10 +52,12 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     private CameraOrientationListener mOrientationListener;
 
     public static Fragment newInstance() {
-        return new CameraFragment();
+        CameraFragment fragment = new CameraFragment();
+        return fragment;
     }
 
-    public CameraFragment() {}
+    public CameraFragment() {
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -86,8 +88,11 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
         mPreviewView = (SquareCameraPreview) view.findViewById(R.id.camera_preview_view);
         mPreviewView.getHolder().addCallback(CameraFragment.this);
 
+        final boolean isSquare = getActivity().getIntent().getBooleanExtra(CameraActivity.INTENT_IS_SQUARE_PHOTO, true);
+
         final View topCoverView = view.findViewById(R.id.cover_top_view);
         final View btnCoverView = view.findViewById(R.id.cover_bottom_view);
+
 
         if (mCoverHeight == 0) {
             ViewTreeObserver observer = mPreviewView.getViewTreeObserver();
@@ -96,11 +101,13 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
                 public void onGlobalLayout() {
                     int width = mPreviewView.getWidth();
                     mPreviewHeight = mPreviewView.getHeight();
-                    mCoverHeight = (mPreviewHeight - width) / 2;
 
                     Log.d(TAG, "preview width " + width + " height " + mPreviewHeight);
-                    topCoverView.getLayoutParams().height = mCoverHeight;
-                    btnCoverView.getLayoutParams().height = mCoverHeight;
+                    if (isSquare) {
+                        mCoverHeight = (mPreviewHeight - width) / 2;
+                        topCoverView.getLayoutParams().height = mCoverHeight;
+                        btnCoverView.getLayoutParams().height = mCoverHeight;
+                    }
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         mPreviewView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -109,9 +116,10 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
                     }
                 }
             });
+
         } else {
-            topCoverView.getLayoutParams().height = mCoverHeight;
-            btnCoverView.getLayoutParams().height = mCoverHeight;
+            topCoverView.setVisibility(View.GONE);
+            btnCoverView.setVisibility(View.GONE);
         }
 
         final ImageView swapCameraBtn = (ImageView) view.findViewById(R.id.change_camera);
@@ -396,6 +404,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
 
     /**
      * A picture has been taken
+     *
      * @param data
      * @param camera
      */

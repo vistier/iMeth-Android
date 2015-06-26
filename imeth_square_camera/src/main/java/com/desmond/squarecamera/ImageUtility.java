@@ -56,12 +56,17 @@ public class ImageUtility {
         return bitmap;
     }
 
-    public static Uri savePicture(Context context, Bitmap bitmap) {
-        int cropHeight;
-        if (bitmap.getHeight() > bitmap.getWidth()) cropHeight = bitmap.getWidth();
-        else cropHeight = bitmap.getHeight();
+    public static Uri savePicture(Context context, Bitmap bitmap, boolean isSquare) {
+        int cropHeight = bitmap.getHeight(), cropWidth = bitmap.getWidth();
+        if (isSquare) {
+            if (bitmap.getHeight() > bitmap.getWidth()) {
+                cropHeight = bitmap.getWidth();
+            }
 
-        bitmap = ThumbnailUtils.extractThumbnail(bitmap, cropHeight, cropHeight, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+            cropWidth = cropHeight;
+        }
+
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, cropWidth, cropHeight, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 
         File mediaStorageDir = new File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),

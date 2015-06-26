@@ -12,9 +12,22 @@ import android.view.WindowManager;
 
 public class CameraActivity extends Activity {
 
-    public static void startActivityForRe(Activity activity, int requestCode) {
+    public static final String INTENT_IS_SQUARE_PHOTO= "square";
+
+    /**
+     *
+     * @param activity
+     * @param requestCode
+     * @param isSquare 是否拍方形照片
+     */
+    public static void startActivityForRe(Activity activity, int requestCode, boolean isSquare) {
         Intent intent = new Intent(activity, CameraActivity.class);
+        intent.putExtra(INTENT_IS_SQUARE_PHOTO, isSquare);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void startActivityForRe(Activity activity, int requestCode) {
+        startActivityForRe(activity, requestCode, true);
     }
 
     public static final String TAG = CameraActivity.class.getSimpleName();
@@ -25,8 +38,7 @@ public class CameraActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
             View decorView = getWindow().getDecorView();
             // Hide the status bar.
