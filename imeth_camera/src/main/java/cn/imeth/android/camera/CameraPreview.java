@@ -1,4 +1,4 @@
-package com.desmond.squarecamera;
+package cn.imeth.android.camera;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -15,9 +15,9 @@ import java.util.List;
 /**
  *
  */
-public class SquareCameraPreview extends SurfaceView {
+public class CameraPreview extends SurfaceView {
 
-    public static final String TAG = SquareCameraPreview.class.getSimpleName();
+    public static final String TAG = CameraPreview.class.getSimpleName();
     private static final int INVALID_POINTER_ID = -1;
 
     private static final int ZOOM_OUT = 0;
@@ -46,17 +46,17 @@ public class SquareCameraPreview extends SurfaceView {
     private Camera.Area mFocusArea;
     private ArrayList<Camera.Area> mFocusAreas;
 
-    public SquareCameraPreview(Context context) {
+    public CameraPreview(Context context) {
         super(context);
         init(context);
     }
 
-    public SquareCameraPreview(Context context, AttributeSet attrs) {
+    public CameraPreview(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public SquareCameraPreview(Context context, AttributeSet attrs, int defStyle) {
+    public CameraPreview(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }

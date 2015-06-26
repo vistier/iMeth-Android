@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.desmond.squarecamera.CameraFragment">
+    tools:context="cn.imeth.android.camera.CameraFragment">
 
-    <com.desmond.squarecamera.SquareCameraPreview
+    <cn.imeth.android.camera.CameraPreview
         android:id="@+id/camera_preview_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

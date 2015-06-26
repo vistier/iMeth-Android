@@ -1,4 +1,4 @@
-package com.desmond.squarecamera;
+package cn.imeth.android.camera;
 
 
 import android.app.Activity;
@@ -37,7 +37,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     private int mCameraID;
     private String mFlashMode;
     private Camera mCamera;
-    private SquareCameraPreview mPreviewView;
+    private CameraPreview mPreviewView;
     private SurfaceHolder mSurfaceHolder;
 
     private int mDisplayOrientation;
@@ -85,7 +85,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
 
         mOrientationListener.enable();
 
-        mPreviewView = (SquareCameraPreview) view.findViewById(R.id.camera_preview_view);
+        mPreviewView = (CameraPreview) view.findViewById(R.id.camera_preview_view);
         mPreviewView.getHolder().addCallback(CameraFragment.this);
 
         Intent intent = getActivity().getIntent();

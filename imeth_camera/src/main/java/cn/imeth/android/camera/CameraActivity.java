@@ -1,4 +1,4 @@
-package com.desmond.squarecamera;
+package cn.imeth.android.camera;
 
 import android.app.Activity;
 import android.content.Intent;

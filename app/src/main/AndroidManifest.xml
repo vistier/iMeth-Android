@@ -50,8 +50,8 @@
             android:configChanges="orientation|screenSize"
             />
 
-        <activity android:name=".SquareCameraActivity" />
-        <activity android:name="com.desmond.squarecamera.CameraActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
+        <activity android:name=".CameraActivity" />
+        <activity android:name="cn.imeth.android.camera.CameraActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 
     </application>
 

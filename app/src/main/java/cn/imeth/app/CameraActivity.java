@@ -11,13 +11,12 @@ import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.desmond.squarecamera.CameraActivity;
-import com.desmond.squarecamera.ImageUtility;
+import cn.imeth.android.camera.ImageUtility;
 
-public class SquareCameraActivity extends Activity {
+public class CameraActivity extends Activity {
 
     public static void startActivity(Context context) {
-        Intent intent = new Intent(context, SquareCameraActivity.class);
+        Intent intent = new Intent(context, CameraActivity.class);
 
         context.startActivity(intent);
     }
@@ -50,6 +49,6 @@ public class SquareCameraActivity extends Activity {
     }
 
     public void launchCamera(View view) {
-        CameraActivity.startActivityForRe(this, REQUEST_CAMERA, true);
+        cn.imeth.android.camera.CameraActivity.startActivityForRe(this, REQUEST_CAMERA, true);
     }
 }

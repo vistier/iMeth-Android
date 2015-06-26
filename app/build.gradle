@@ -39,6 +39,6 @@ dependencies {
     compile project(':imeth')
     compile project(':arcmenu')
     compile project(':imeth_video_play')
-    compile project(':imeth_square_camera')
+    compile project(':imeth_camera')
     compile project(':volley')
 }
