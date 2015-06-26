@@ -7,8 +7,9 @@
     <com.desmond.squarecamera.SquareCameraPreview
         android:id="@+id/camera_preview_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/camera_tools_view" />
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true" />
 
     <View
         android:id="@+id/cover_top_view"
@@ -29,11 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/black"
+        android:background="#44000000"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="3dp">
 
         <ImageView
             android:id="@+id/change_camera"

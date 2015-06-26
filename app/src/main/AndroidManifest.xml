@@ -51,7 +51,7 @@
             />
 
         <activity android:name=".SquareCameraActivity" />
-        <activity android:name="com.desmond.squarecamera.CameraActivity"/>
+        <activity android:name="com.desmond.squarecamera.CameraActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 
     </application>
 

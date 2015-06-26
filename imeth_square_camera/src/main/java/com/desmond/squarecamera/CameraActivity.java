@@ -12,18 +12,45 @@ import android.view.WindowManager;
 
 public class CameraActivity extends Activity {
 
-    public static final String INTENT_IS_SQUARE_PHOTO= "square";
+    public static final String INTENT_IS_SQUARE_PHOTO = "square";
+    public static final String INTENT_IS_RESOLUTION_RATIO_X = "resolution.ratio.x";
+    public static final String INTENT_IS_RESOLUTION_RATIO_Y = "resolution.ratio.y";
+
+    public static enum ResolutionRatio {
+        /** 3:4 分辨率 */
+        ThreeFour(3, 4),
+        /** 9:16 分辨率 */
+        NineHex(9, 16);
+
+        int width;
+        int height;
+
+        ResolutionRatio(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+    }
 
     /**
-     *
      * @param activity
      * @param requestCode
-     * @param isSquare 是否拍方形照片
+     * @param isSquare    是否拍方形照片
+     * @param resolutionRatio 像机获取相片分辨率比例
+     * @see ResolutionRatio
      */
-    public static void startActivityForRe(Activity activity, int requestCode, boolean isSquare) {
+    public static void startActivityForRe(Activity activity, int requestCode, boolean isSquare, ResolutionRatio resolutionRatio) {
         Intent intent = new Intent(activity, CameraActivity.class);
+
         intent.putExtra(INTENT_IS_SQUARE_PHOTO, isSquare);
+        intent.putExtra(INTENT_IS_RESOLUTION_RATIO_X, resolutionRatio.width);
+        intent.putExtra(INTENT_IS_RESOLUTION_RATIO_Y, resolutionRatio.height);
+
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void startActivityForRe(Activity activity, int requestCode, boolean isSquare) {
+        startActivityForRe(activity, requestCode, isSquare, ResolutionRatio.ThreeFour);
     }
 
     public static void startActivityForRe(Activity activity, int requestCode) {
@@ -46,10 +73,10 @@ public class CameraActivity extends Activity {
             decorView.setSystemUiVisibility(uiOptions);
         }
 
-        if(getActionBar() != null){
+        if (getActionBar() != null) {
             getActionBar().hide();
         }
-        
+
         getWindow().setBackgroundDrawable(null);
         setContentView(R.layout.activity_camera);
 

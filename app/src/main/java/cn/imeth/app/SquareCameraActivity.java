@@ -50,6 +50,6 @@ public class SquareCameraActivity extends Activity {
     }
 
     public void launchCamera(View view) {
-        CameraActivity.startActivityForRe(this, REQUEST_CAMERA, false);
+        CameraActivity.startActivityForRe(this, REQUEST_CAMERA, true);
     }
 }

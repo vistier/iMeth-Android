@@ -34,9 +34,6 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     public static final String CAMERA_FLASH_KEY = "flash_mode";
     public static final String PREVIEW_HEIGHT_KEY = "preview_height";
 
-    private static final int PICTURE_SIZE_MAX_WIDTH = 1280;
-    private static final int PREVIEW_SIZE_MAX_WIDTH = 640;
-
     private int mCameraID;
     private String mFlashMode;
     private Camera mCamera;
@@ -48,6 +45,9 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
 
     private int mCoverHeight;
     private int mPreviewHeight;
+
+    int ratioY = 4;
+    int ratioX = 3;
 
     private CameraOrientationListener mOrientationListener;
 
@@ -88,11 +88,14 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
         mPreviewView = (SquareCameraPreview) view.findViewById(R.id.camera_preview_view);
         mPreviewView.getHolder().addCallback(CameraFragment.this);
 
-        final boolean isSquare = getActivity().getIntent().getBooleanExtra(CameraActivity.INTENT_IS_SQUARE_PHOTO, true);
+        Intent intent = getActivity().getIntent();
+
+        final boolean isSquare = intent.getBooleanExtra(CameraActivity.INTENT_IS_SQUARE_PHOTO, true);
+        ratioX = intent.getIntExtra(CameraActivity.INTENT_IS_RESOLUTION_RATIO_X, ratioX);
+        ratioY = intent.getIntExtra(CameraActivity.INTENT_IS_RESOLUTION_RATIO_Y, ratioY);
 
         final View topCoverView = view.findViewById(R.id.cover_top_view);
         final View btnCoverView = view.findViewById(R.id.cover_bottom_view);
-
 
         if (mCoverHeight == 0) {
             ViewTreeObserver observer = mPreviewView.getViewTreeObserver();
@@ -117,9 +120,9 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
                 }
             });
 
-        } else {
-            topCoverView.setVisibility(View.GONE);
-            btnCoverView.setVisibility(View.GONE);
+        } else if (isSquare) {
+            topCoverView.getLayoutParams().height = mCoverHeight;
+            btnCoverView.getLayoutParams().height = mCoverHeight;
         }
 
         final ImageView swapCameraBtn = (ImageView) view.findViewById(R.id.change_camera);
@@ -269,7 +272,6 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
         parameters.setPreviewSize(bestPreviewSize.width, bestPreviewSize.height);
         parameters.setPictureSize(bestPictureSize.width, bestPictureSize.height);
 
-
         // Set continuous picture focus, if it's supported
         if (parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
@@ -289,20 +291,20 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     }
 
     private Size determineBestPreviewSize(Camera.Parameters parameters) {
-        return determineBestSize(parameters.getSupportedPreviewSizes(), PREVIEW_SIZE_MAX_WIDTH);
+        return determineBestSize(parameters.getSupportedPreviewSizes());
     }
 
     private Size determineBestPictureSize(Camera.Parameters parameters) {
-        return determineBestSize(parameters.getSupportedPictureSizes(), PICTURE_SIZE_MAX_WIDTH);
+        return determineBestSize(parameters.getSupportedPictureSizes());
     }
 
-    private Size determineBestSize(List<Size> sizes, int widthThreshold) {
+    private Size determineBestSize(List<Size> sizes) {
         Size bestSize = null;
         Size size;
         int numOfSizes = sizes.size();
         for (int i = 0; i < numOfSizes; i++) {
             size = sizes.get(i);
-            boolean isDesireRatio = (size.width / 4) == (size.height / 3);
+            boolean isDesireRatio = (size.width / ratioY) == (size.height / ratioX);
             boolean isBetterSize = (bestSize == null) || size.width > bestSize.width;
 
             if (isDesireRatio && isBetterSize) {
