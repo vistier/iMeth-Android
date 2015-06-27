@@ -137,6 +137,13 @@ public class MainActivity extends ImethActivity {
             }
         });
 
+        findViewById(R.id.rvp_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cn.imeth.app.recycler.viewpager.MainActivity.startActivity(MainActivity.this);
+            }
+        });
+
     }
 
     @Override

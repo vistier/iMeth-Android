@@ -91,5 +91,14 @@
         android:layout_toRightOf="@+id/ImageSliderBtn"
         android:text="方形相机" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RVP"
+        android:id="@+id/rvp_btn"
+        android:layout_below="@+id/video_play_btn"
+        android:layout_alignLeft="@+id/video_play_btn"
+        android:layout_alignStart="@+id/video_play_btn" />
+
 
 </RelativeLayout>
