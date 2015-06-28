@@ -2,7 +2,7 @@ package cn.imeth.android.image.slider.transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import cn.imeth.android.animation.ViewHelper;
 
 public class ZoomOutSlideTransformer extends BaseTransformer {
 
@@ -19,7 +19,7 @@ public class ZoomOutSlideTransformer extends BaseTransformer {
 			final float horzMargin = view.getWidth() * (1 - scaleFactor) / 2;
 
             // Center vertically
-            ViewHelper.setPivotY(view,0.5f * height);
+            ViewHelper.setPivotY(view, 0.5f * height);
 
 
 			if (position < 0) {

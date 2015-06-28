@@ -2,7 +2,7 @@ package cn.imeth.android.image.slider.transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import cn.imeth.android.animation.ViewHelper;
 
 /**
  * Created by realandylawton on 11/22/13.
@@ -14,7 +14,7 @@ public class FadeTransformer extends BaseTransformer {
 
         // Page is not an immediate sibling, just make transparent
         if(position < -1 || position > 1) {
-            ViewHelper.setAlpha(view,0.6f);
+            ViewHelper.setAlpha(view, 0.6f);
         }
         // Page is sibling to left or right
         else if (position <= 0 || position <= 1) {

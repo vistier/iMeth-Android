@@ -2,7 +2,7 @@ package cn.imeth.android.image.slider.transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import cn.imeth.android.animation.ViewHelper;
 
 public class DepthPageTransformer extends BaseTransformer {
 
@@ -12,7 +12,7 @@ public class DepthPageTransformer extends BaseTransformer {
 	protected void onTransform(View view, float position) {
 		if (position <= 0f) {
             ViewHelper.setTranslationX(view,0f);
-            ViewHelper.setScaleX(view,1f);
+            ViewHelper.setScaleX(view, 1f);
             ViewHelper.setScaleY(view,1f);
 		} else if (position <= 1f) {
 			final float scaleFactor = MIN_SCALE + (1 - MIN_SCALE) * (1 - Math.abs(position));

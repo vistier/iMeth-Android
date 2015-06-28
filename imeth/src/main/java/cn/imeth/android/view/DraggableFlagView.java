@@ -1,5 +1,8 @@
 package cn.imeth.android.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -17,14 +20,14 @@ import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.RelativeLayout;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ValueAnimator;
-
 import java.util.Arrays;
 
 import cn.imeth.android.R;
 import cn.imeth.android.lang.utils.Androids;
+
+//import com.nineoldandroids.animation.AnimatorListenerAdapter;
+
+//import com.nineoldandroids.animation.Animator;
 
 /**
  * Author: wangjie

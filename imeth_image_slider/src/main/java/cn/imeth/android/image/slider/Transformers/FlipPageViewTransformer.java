@@ -3,8 +3,7 @@ package cn.imeth.android.image.slider.transformers;
 import android.os.Build;
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
-
+import cn.imeth.android.animation.ViewHelper;
 import cn.imeth.android.image.slider.tricks.ViewPagerEx;
 
 public class FlipPageViewTransformer extends BaseTransformer {
@@ -32,7 +31,7 @@ public class FlipPageViewTransformer extends BaseTransformer {
     private void setTranslation(View view) {
         ViewPagerEx viewPager = (ViewPagerEx) view.getParent();
         int scroll = viewPager.getScrollX() - view.getLeft();
-        ViewHelper.setTranslationX(view,scroll);
+        ViewHelper.setTranslationX(view, scroll);
     }
 
     private void setSize(View view, float position, float percentage) {

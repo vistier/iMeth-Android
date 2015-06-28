@@ -2,11 +2,10 @@ package cn.imeth.android.image.slider.transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cn.imeth.android.animation.ViewHelper;
 import cn.imeth.android.image.slider.animations.BaseAnimationInterface;
 import cn.imeth.android.image.slider.tricks.ViewPagerEx;
 
@@ -73,7 +72,7 @@ public abstract class BaseTransformer implements ViewPagerEx.PageTransformer {
     protected void onPreTransform(View view, float position) {
         final float width = view.getWidth();
 
-        ViewHelper.setRotationX(view,0);
+        ViewHelper.setRotationX(view, 0);
         ViewHelper.setRotationY(view,0);
         ViewHelper.setRotation(view,0);
         ViewHelper.setScaleX(view,1);

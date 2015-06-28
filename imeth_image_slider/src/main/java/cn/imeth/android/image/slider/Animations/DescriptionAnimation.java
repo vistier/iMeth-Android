@@ -1,11 +1,9 @@
 package cn.imeth.android.image.slider.animations;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.View;
-
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.view.ViewHelper;
-
+import cn.imeth.android.animation.ViewHelper;
 import cn.imeth.android.image.slider.R;
 
 /**
@@ -53,7 +51,7 @@ public class DescriptionAnimation implements BaseAnimationInterface {
             float layoutY = ViewHelper.getY(descriptionLayout);
             view.findViewById(R.id.description_layout).setVisibility(View.VISIBLE);
             ValueAnimator animator = ObjectAnimator.ofFloat(
-                    descriptionLayout,"y",layoutY + descriptionLayout.getHeight(),
+                    descriptionLayout, "y", layoutY + descriptionLayout.getHeight(),
                     layoutY).setDuration(500);
             animator.start();
         }

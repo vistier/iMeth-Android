@@ -2,7 +2,8 @@ package cn.imeth.android.image.slider.transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import cn.imeth.android.animation.ViewHelper;
+
 
 public class BackgroundToForegroundTransformer extends BaseTransformer {
 
@@ -12,7 +13,7 @@ public class BackgroundToForegroundTransformer extends BaseTransformer {
 		final float width = view.getWidth();
 		final float scale = min(position < 0 ? 1f : Math.abs(1f - position), 0.5f);
 
-        ViewHelper.setScaleX(view,scale);
+        ViewHelper.setScaleX(view, scale);
         ViewHelper.setScaleY(view,scale);
         ViewHelper.setPivotX(view,width*0.5f);
         ViewHelper.setPivotY(view,height*0.5f);

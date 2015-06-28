@@ -4,7 +4,7 @@ import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import cn.imeth.android.animation.ViewHelper;
 
 public class TabletTransformer extends BaseTransformer {
 
@@ -16,7 +16,7 @@ public class TabletTransformer extends BaseTransformer {
 	protected void onTransform(View view, float position) {
 		final float rotation = (position < 0 ? 30f : -30f) * Math.abs(position);
 
-		ViewHelper.setTranslationX(view,getOffsetXForRotation(rotation, view.getWidth(), view.getHeight()));
+		ViewHelper.setTranslationX(view, getOffsetXForRotation(rotation, view.getWidth(), view.getHeight()));
         ViewHelper.setPivotX(view,view.getWidth() * 0.5f);
         ViewHelper.setPivotY(view,0);
         ViewHelper.setRotationY(view,rotation);

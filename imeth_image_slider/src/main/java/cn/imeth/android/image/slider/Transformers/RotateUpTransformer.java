@@ -2,7 +2,7 @@ package cn.imeth.android.image.slider.transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import cn.imeth.android.animation.ViewHelper;
 
 public class RotateUpTransformer extends BaseTransformer {
 
@@ -14,7 +14,7 @@ public class RotateUpTransformer extends BaseTransformer {
 		final float rotation = ROT_MOD * position;
 
 		ViewHelper.setPivotX(view,width * 0.5f);
-        ViewHelper.setPivotY(view,0f);
+        ViewHelper.setPivotY(view, 0f);
         ViewHelper.setTranslationX(view,0f);
         ViewHelper.setRotation(view,rotation);
 	}

@@ -2,7 +2,8 @@ package cn.imeth.android.image.slider.transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import cn.imeth.android.animation.ViewHelper;
+
 
 public class ZoomOutTransformer extends BaseTransformer {
 
@@ -10,7 +11,7 @@ public class ZoomOutTransformer extends BaseTransformer {
     protected void onTransform(View view, float position) {
         final float scale = 1f + Math.abs(position);
         ViewHelper.setScaleX(view,scale);
-        ViewHelper.setScaleY(view,scale);
+        ViewHelper.setScaleY(view, scale);
         ViewHelper.setPivotX(view,view.getWidth() * 0.5f);
         ViewHelper.setPivotY(view,view.getWidth() * 0.5f);
         ViewHelper.setAlpha(view,position < -1f || position > 1f ? 0f : 1f - (scale - 1f));

@@ -2,7 +2,7 @@ package cn.imeth.android.image.slider.transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import cn.imeth.android.animation.ViewHelper;
 
 public class CubeInTransformer extends BaseTransformer {
 
@@ -10,7 +10,7 @@ public class CubeInTransformer extends BaseTransformer {
 	protected void onTransform(View view, float position) {
 		// Rotate the fragment on the left or right edge
         ViewHelper.setPivotX(view,position > 0 ? 0 : view.getWidth());
-        ViewHelper.setPivotY(view,0);
+        ViewHelper.setPivotY(view, 0);
         ViewHelper.setRotation(view,-90f * position);
 	}
 
