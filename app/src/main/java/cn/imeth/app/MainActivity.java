@@ -23,8 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.imeth.android.activity.ImethActivity;
+import cn.imeth.android.image.choose.PhotoChooseActivity;
+import cn.imeth.android.lang.utils.Androids;
 import cn.imeth.android.log.Log;
-import cn.imeth.android.utils.Androids;
 import cn.imeth.android.utils.TypefaceUtils;
 import cn.imeth.android.view.DraggableFlagView;
 import cn.imeth.app.image.slider.ImageSliderActivity;
@@ -141,6 +142,13 @@ public class MainActivity extends ImethActivity {
             @Override
             public void onClick(View v) {
                 cn.imeth.app.recycler.viewpager.MainActivity.startActivity(MainActivity.this);
+            }
+        });
+
+        findViewById(R.id.choose_photo_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhotoChooseActivity.startActivity(MainActivity.this);
             }
         });
 

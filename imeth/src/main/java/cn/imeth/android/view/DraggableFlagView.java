@@ -24,7 +24,7 @@ import com.nineoldandroids.animation.ValueAnimator;
 import java.util.Arrays;
 
 import cn.imeth.android.R;
-import cn.imeth.android.utils.Androids;
+import cn.imeth.android.lang.utils.Androids;
 
 /**
  * Author: wangjie

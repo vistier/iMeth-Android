@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.imeth.android.utils;
+package cn.imeth.android.lang.utils;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -21,8 +21,6 @@ import android.graphics.Typeface;
 import android.widget.TextView;
 
 import java.util.Arrays;
-
-import cn.imeth.android.lang.utils.Androids;
 
 /**
  * Helpers for dealing with custom typefaces and measuring text to display

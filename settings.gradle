@@ -1,1 +1,13 @@
-include ':app', ':phoneview', ':imeth', ':volley', ':arcmenu', ':imeth_video_play', ':imeth_log4j', ':imeth_camera', ':imeth_recycler_view_pager'
+include ':app',
+
+        ':imeth',
+        ':imeth_camera',
+        ':imeth_image',
+        ':imeth_lang',
+        ':imeth_log4j',
+        ':imeth_recycler_view_pager',
+        ':imeth_video_play',
+
+        ':arcmenu',
+        ':phoneview',
+        ':volley'

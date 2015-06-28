@@ -42,4 +42,5 @@ dependencies {
     compile project(':imeth_camera')
     compile project(':volley')
     compile project(':imeth_recycler_view_pager')
+    compile project(':imeth_image')
 }

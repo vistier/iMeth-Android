@@ -3,6 +3,7 @@ package cn.imeth.app;
 import java.io.File;
 
 import cn.imeth.android.ImethApplication;
+import cn.imeth.android.image.utils.ImageLoaderUtils;
 import cn.imeth.android.log.Log;
 import cn.imeth.android.log.LogConfig;
 
@@ -16,6 +17,8 @@ public class AppApplication extends ImethApplication {
         super.onCreate();
 
         initLogger();
+
+        ImageLoaderUtils.init(this);
     }
 
     private void initLogger() {

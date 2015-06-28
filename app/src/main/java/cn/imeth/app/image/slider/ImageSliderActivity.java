@@ -12,7 +12,7 @@ import cn.imeth.android.image.slider.SliderLayout;
 import cn.imeth.android.image.slider.SliderTypes.BaseSliderView;
 import cn.imeth.android.image.slider.SliderTypes.TextSliderView;
 import cn.imeth.android.image.slider.Tricks.ViewPagerEx;
-import cn.imeth.android.utils.Androids;
+import cn.imeth.android.lang.utils.Androids;
 import cn.imeth.app.R;
 
 /**

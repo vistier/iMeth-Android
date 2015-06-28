@@ -56,6 +56,9 @@
         <activity android:name=".recycler.viewpager.MainActivity"
             android:theme="@android:style/Theme.WithActionBar"/>
 
+        <activity android:name="cn.imeth.android.image.choose.PhotoChooseActivity"/>
+        <activity android:name="cn.imeth.android.image.browse.PhotoBrowseActivity"/>
+
     </application>
 
 </manifest>
