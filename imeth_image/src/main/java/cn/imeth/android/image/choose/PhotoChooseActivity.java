@@ -2,7 +2,6 @@ package cn.imeth.android.image.choose;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,12 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,11 +31,21 @@ import cn.imeth.android.lang.utils.Androids;
  */
 public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolderListPopupWindow.OnPhotoFolderSelectListener {
 
-    public static void startActivity(Context context) {
-        context.startActivity(new Intent(context, PhotoChooseActivity.class));
+    public static final String INTENT_MAX_SELECT_NUM = "max_num";
+
+    public static void startActivityForResult(Activity activity, int requestCode) {
+        Intent intent = new Intent(activity, PhotoChooseActivity.class);
+        activity.startActivityForResult(intent, requestCode);
     }
 
-    private List<String> photos;
+    public static void startActivityForResult(Activity activity, int requestCode, int maxSelectNumber) {
+        Intent intent = new Intent(activity, PhotoChooseActivity.class);
+        intent.putExtra(INTENT_MAX_SELECT_NUM, maxSelectNumber);
+
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    //private List<String> photos;
     private GridView gridView;
     private PhotoAdapter adapter;
 
@@ -53,24 +62,40 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
      */
     private TextView countValue;
 
+    private Button okBtn;
+
     private PhotoFolderListPopupWindow photoFolderListPopupWindow;
     private ProgressDialog progressDialog;
 
-    private List<PhotoFolder> photoFolders = new ArrayList<>();
-    private File photoFolder;
+    //private File photoFolder;
+
+    /**
+     * 最多选择图片数量
+     */
+    int maxSelectNum = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_choose_activity);
 
-        if(!ImageLoaderUtils.isInited()) {
+        if (!ImageLoaderUtils.isInited()) {
             ImageLoaderUtils.init(this);
         }
+
+        initIntent();
 
         getImages();
         initViews();
         initEvent();
+
+    }
+
+    private void initIntent() {
+        maxSelectNum = getIntent().getIntExtra(INTENT_MAX_SELECT_NUM, maxSelectNum);
+        if (maxSelectNum <= 0) {
+            maxSelectNum = -1;
+        }
 
     }
 
@@ -94,12 +119,10 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
             @Override
             protected void onPostExecute(List<PhotoFolder> folders) {
                 Log.v("imeth", "onPostExecute" + folders.size());
-                //photoFolders = folders;
 
-                photoFolders.clear();
-                photoFolders.addAll(folders);
+                photoFolderListPopupWindow.setData(folders);
 
-                onSelected(photoFolders.get(0));
+                onSelected(folders.get(0));
                 progressDialog.dismiss();
             }
         }.execute();
@@ -110,6 +133,7 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
 
         folderValue = (TextView) findViewById(R.id.folder_value);
         countValue = (TextView) findViewById(R.id.count_value);
+        okBtn = (Button) findViewById(R.id.ok_btn);
 
         toolBar = findViewById(R.id.tool_bar);
 
@@ -134,8 +158,7 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
                 LayoutInflater.from(this).inflate(R.layout.photo_folder_list_popup_window_layout, null),
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) (Androids.Display.height * 0.7),
-                true,
-                photoFolders);
+                true);
 
         photoFolderListPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -150,10 +173,11 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
 
     @Override
     public void onSelected(PhotoFolder folder) {
-        photoFolder = new File(folder.dir);
-        photos = Arrays.asList(photoFolder.list(ContentResolvers.imageFileFilter));
+        File photoFolder = new File(folder.dir);
+        List<String> photos = Arrays.asList(photoFolder.list(ContentResolvers.imageFileFilter));
 
-        adapter = new PhotoAdapter(this, photos, folder.dir);
+        adapter = new PhotoAdapter(this, folder.dir, maxSelectNum);
+        adapter.addAll(photos);
         adapter.listener = onPhotoClickListener;
         gridView.setAdapter(adapter);
 
@@ -165,9 +189,16 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
     }
 
     private PhotoAdapter.OnPhotoClickListener onPhotoClickListener = new PhotoAdapter.OnPhotoClickListener() {
+
         @Override
         public void onPhotoClick(String photo) {
+            photo = "file://" + photo;
             PhotoBrowseActivity.startActivity(PhotoChooseActivity.this, 0, photo);
+        }
+
+        @Override
+        public void onChangeSelectedNum(int num) {
+            okBtn.setText(String.format("确定[%s]", num));
         }
     };
 
@@ -179,17 +210,21 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
 
     @Override
     public void onBackPressed() {
-        onResult();
-        super.onBackPressed();
+        if (adapter.selectedPhotos.isEmpty()) {
+            super.onBackPressed();
+        } else {
+            onResult(null);
+        }
     }
 
-    public void onResult(){
+    public void onResult(View view) {
         Intent intent = new Intent();
-        intent.putExtra("photos", adapter.selectedPhotos.toArray());
-        setResult(Activity.RESULT_OK);
+        intent.putExtra("photos", adapter.selectedPhotos.toArray(new String[0]));
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
-    public static List<String> parseIntent(Intent intent){
+    public static List<String> parseIntent(Intent intent) {
         return Arrays.asList(intent.getStringArrayExtra("photos"));
     }
 

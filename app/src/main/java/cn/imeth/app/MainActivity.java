@@ -1,5 +1,6 @@
 package cn.imeth.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -22,11 +23,13 @@ import com.capricorn.RayMenu;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 import cn.imeth.android.activity.ImethActivity;
 import cn.imeth.android.image.choose.PhotoChooseActivity;
+import cn.imeth.android.lang.log.Log;
 import cn.imeth.android.lang.utils.Androids;
 import cn.imeth.android.lang.utils.TypefaceUtils;
-import cn.imeth.android.lang.log.Log;
 import cn.imeth.android.view.DraggableFlagView;
 import cn.imeth.app.image.slider.ImageSliderActivity;
 import cn.imeth.video.play.VideoPlayActivity;
@@ -40,7 +43,7 @@ public class MainActivity extends ImethActivity {
             R.drawable.composer_place,
             R.drawable.composer_sleep,
             R.drawable.composer_thought,
-            R.drawable.composer_with };
+            R.drawable.composer_with};
 
     private RequestQueue requestQueue;
 
@@ -148,10 +151,19 @@ public class MainActivity extends ImethActivity {
         findViewById(R.id.choose_photo_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoChooseActivity.startActivity(MainActivity.this);
+                PhotoChooseActivity.startActivityForResult(MainActivity.this, 100, 9);
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
+            Log.d("imeth", Arrays.toString(data.getStringArrayExtra("photos")));
+        }
     }
 
     @Override

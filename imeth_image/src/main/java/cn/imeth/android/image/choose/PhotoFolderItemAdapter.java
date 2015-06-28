@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.List;
-
 import cn.imeth.android.image.R;
 import cn.imeth.android.image.utils.ImageLoaderUtils;
 import cn.imeth.android.lang.adapter.ViewHolderArrayAdapter;
@@ -20,11 +18,9 @@ public class PhotoFolderItemAdapter extends ViewHolderArrayAdapter<PhotoFolderIt
 
     private ImageLoader imageLoader;
 
-    public PhotoFolderItemAdapter(Context context, List<PhotoFolder> data) {
+    public PhotoFolderItemAdapter(Context context) {
         super(context, R.layout.photo_folder_list_item_adapter);
         imageLoader = ImageLoader.getInstance();
-
-        addAll(data);
     }
 
     @Override

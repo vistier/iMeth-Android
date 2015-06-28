@@ -36,6 +36,16 @@
             android:text="所有图片"
             android:textColor="@android:color/white" />
 
+        <Button
+            android:id="@+id/ok_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:onClick="onResult"
+            android:text="确定"
+            android:textColor="@android:color/white" />
+
         <TextView
             android:id="@+id/count_value"
             android:layout_width="50dp"

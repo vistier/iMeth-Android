@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.imeth.android.image.R;
@@ -20,7 +19,6 @@ import cn.imeth.android.image.R;
  */
 public class PhotoFolderListPopupWindow extends PopupWindow {
 
-    protected List<PhotoFolder> folders;
 
     protected ListView folderListView;
     protected PhotoFolderItemAdapter adapter;
@@ -28,18 +26,9 @@ public class PhotoFolderListPopupWindow extends PopupWindow {
     protected OnPhotoFolderSelectListener listener;
 
     public PhotoFolderListPopupWindow(View contentView, int width, int height, boolean focusable) {
-        this(contentView, width, height, focusable, new ArrayList<PhotoFolder>(0));
-    }
-
-    public PhotoFolderListPopupWindow(View contentView, int width, int height, boolean focusable, List<PhotoFolder> folders) {
         super(contentView, width, height, focusable);
 
-        if (folders != null) {
-            this.folders = folders;
-            this.adapter = new PhotoFolderItemAdapter(contentView.getContext(), folders);
-        } else {
-            throw new RuntimeException("image folder is null");
-        }
+        this.adapter = new PhotoFolderItemAdapter(contentView.getContext());
 
         setBackgroundDrawable(new BitmapDrawable(null, (Bitmap) null));
         setTouchable(true);
@@ -62,6 +51,10 @@ public class PhotoFolderListPopupWindow extends PopupWindow {
         init();
     }
 
+    public void setData(List<PhotoFolder> folders) {
+        adapter.reset(folders);
+    }
+
     public void initViews() {
         folderListView = (ListView) findViewById(R.id.list_view);
         folderListView.setAdapter(adapter);
@@ -72,7 +65,7 @@ public class PhotoFolderListPopupWindow extends PopupWindow {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (listener != null) {
-                    listener.onSelected(folders.get(position));
+                    listener.onSelected(adapter.getItem(position));
                 }
             }
         });
@@ -80,6 +73,12 @@ public class PhotoFolderListPopupWindow extends PopupWindow {
 
     public void init() {
 
+    }
+
+    @Override
+    public void showAsDropDown(View anchor, int xoff, int yoff, int gravity) {
+        super.showAsDropDown(anchor, xoff, yoff, gravity);
+        adapter.notifyDataSetChanged();
     }
 
     public void setListener(OnPhotoFolderSelectListener listener) {

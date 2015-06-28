@@ -30,15 +30,14 @@ public class PhotoAdapter extends ViewHolderArrayAdapter<PhotoAdapter.PhotoViewH
     List<String> selectedPhotos = new LinkedList<>();
 
     String folder;
-
+    int maxSelectNum = -1;
     OnPhotoClickListener listener;
 
-    public PhotoAdapter(Context context, List<String> phones, String folder) {
+    public PhotoAdapter(Context context, String folder, int maxSelectNum) {
         super(context, R.layout.photo_adapter);
         imageLoader = ImageLoader.getInstance();
         this.folder = folder;
-
-        addAll(phones);
+        this.maxSelectNum = maxSelectNum;
     }
 
     @Override
@@ -52,7 +51,7 @@ public class PhotoAdapter extends ViewHolderArrayAdapter<PhotoAdapter.PhotoViewH
             @Override
             public void onClick(View v) {
 
-                String photo = getItem(holder.getPosition());
+                String photo = folder + File.separator + getItem(holder.getPosition());
 
                 if (selectedPhotos.contains(photo)) {
                     selectedPhotos.remove(photo);
@@ -60,12 +59,19 @@ public class PhotoAdapter extends ViewHolderArrayAdapter<PhotoAdapter.PhotoViewH
                     holder.selectIc.setImageResource(R.mipmap.photo_unselected);
                     holder.photoImg.setColorFilter(null);
 
-                } else {
+                    if (listener!=null) {
+                        listener.onChangeSelectedNum(selectedPhotos.size());
+                    }
+
+                } else if (maxSelectNum == -1 || selectedPhotos.size() < maxSelectNum) {
                     selectedPhotos.add(photo);
 
                     holder.selectIc.setImageResource(R.mipmap.photo_selected);
                     holder.photoImg.setColorFilter(SELECTED_COLOR_FILTER);
 
+                    if (listener!=null) {
+                        listener.onChangeSelectedNum(selectedPhotos.size());
+                    }
                 }
             }
         });
@@ -75,7 +81,7 @@ public class PhotoAdapter extends ViewHolderArrayAdapter<PhotoAdapter.PhotoViewH
             public void onClick(View v) {
 
                 if (listener != null) {
-                    String path = "file://" + folder + File.separator + getItem(holder.getPosition());
+                    String path = folder + File.separator + getItem(holder.getPosition());
                     listener.onPhotoClick(path);
                 }
 
@@ -118,6 +124,8 @@ public class PhotoAdapter extends ViewHolderArrayAdapter<PhotoAdapter.PhotoViewH
     public static interface OnPhotoClickListener {
 
         void onPhotoClick(String photo);
+
+        void onChangeSelectedNum(int num);
 
     }
 
