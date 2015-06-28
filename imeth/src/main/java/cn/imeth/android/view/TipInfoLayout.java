@@ -10,8 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import cn.imeth.android.R;
-import cn.imeth.android.utils.TypefaceUtils;
-
+import cn.imeth.android.lang.utils.TypefaceUtils;
 
 /**
  * 一些提示信息显示，包含有加载过程的显示

@@ -12,7 +12,6 @@ public class ImethApplication extends ImethLangApplication {
         super.onCreate();
 
         initDefaultUncaughtExceptionHandler();
-        initImageLoader();
     }
 
     private void initDefaultUncaughtExceptionHandler() {
@@ -26,13 +25,8 @@ public class ImethApplication extends ImethLangApplication {
                     defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
                 }
 
-                // 单独处理的代码
             }
         });
-
-    }
-
-    private void initImageLoader() {
 
     }
 

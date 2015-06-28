@@ -335,8 +335,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 		if (mode.showHeaderLoadingLayout() && null == mIndicatorIvTop) {
 			// If the mode can pull down, and we don't have one set already
 			mIndicatorIvTop = new IndicatorLayout(getContext(), PullToRefreshBase.Mode.PULL_FROM_START);
-			FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-					ViewGroup.LayoutParams.WRAP_CONTENT);
+			FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			params.rightMargin = getResources().getDimensionPixelSize(R.dimen.indicator_right_padding);
 			params.gravity = Gravity.TOP | Gravity.RIGHT;
 			refreshableViewWrapper.addView(mIndicatorIvTop, params);

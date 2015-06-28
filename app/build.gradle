@@ -43,4 +43,5 @@ dependencies {
     compile project(':volley')
     compile project(':imeth_recycler_view_pager')
     compile project(':imeth_image')
+    compile project(':imeth_image_slider')
 }
