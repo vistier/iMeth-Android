@@ -1,4 +1,4 @@
-package cn.imeth.android.thread;
+package cn.imeth.android.lang.thread;
 
 import java.util.Collection;
 

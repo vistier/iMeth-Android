@@ -26,7 +26,7 @@ import cn.imeth.android.activity.ImethActivity;
 import cn.imeth.android.image.choose.PhotoChooseActivity;
 import cn.imeth.android.lang.utils.Androids;
 import cn.imeth.android.lang.utils.TypefaceUtils;
-import cn.imeth.android.log.Log;
+import cn.imeth.android.lang.log.Log;
 import cn.imeth.android.view.DraggableFlagView;
 import cn.imeth.app.image.slider.ImageSliderActivity;
 import cn.imeth.video.play.VideoPlayActivity;

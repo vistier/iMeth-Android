@@ -1,13 +1,13 @@
-package cn.imeth.android.log;
+package cn.imeth.android.lang.log;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import cn.imeth.android.thread.RunTask;
-import cn.imeth.android.thread.ThreadPool;
-import cn.imeth.android.utils.Times;
+import cn.imeth.android.lang.thread.RunTask;
+import cn.imeth.android.lang.thread.ThreadPool;
+import cn.imeth.android.lang.utils.Times;
 
 /**
  * 日志包装工具类
@@ -125,7 +125,7 @@ public class Log {
      * @param priority
      */
     private static void writeLog(String tag, String msg, Throwable tr, String priority) {
-        ThreadPool.go(new RunTask<Void, Void>(tag, msg, tr, priority) {
+        ThreadPool.go(new RunTask<Object, Object>(tag, msg, tr, priority) {
             @Override
             public Void runInBackground() {
                 synchronized (Log.class) {
@@ -150,7 +150,7 @@ public class Log {
 
                         os = new FileOutputStream(logFile, true);
 
-                        String formatMsg = String.format("%s\r\n[%s][%s]:\r\nUser Message: %s\r\n%s",
+                        String formatMsg = String.format("%s [%s][%s]: %s %s",
                                 Times.millisToStringDate(System.currentTimeMillis()),
                                 priority,
                                 tag,

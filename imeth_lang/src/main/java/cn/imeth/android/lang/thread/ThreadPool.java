@@ -1,9 +1,9 @@
-package cn.imeth.android.thread;
+package cn.imeth.android.lang.thread;
+
+import android.util.Log;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import cn.imeth.android.log.Log;
 
 /**
  * Created with IntelliJ IDEA.

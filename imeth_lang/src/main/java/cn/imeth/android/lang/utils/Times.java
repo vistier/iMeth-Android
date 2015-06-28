@@ -1,10 +1,10 @@
-package cn.imeth.android.utils;
+package cn.imeth.android.lang.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cn.imeth.android.log.Log;
+import cn.imeth.android.lang.log.Log;
 
 /**
  * Created by 戴文龙(daiwenlong@hequ.com)on 15/6/11.

@@ -51,7 +51,7 @@ import cn.imeth.android.exception.RemoteServerException;
 import cn.imeth.android.exception.RequestEncryptException;
 import cn.imeth.android.exception.RequestParametersException;
 import cn.imeth.android.exception.RequestTimeoutException;
-import cn.imeth.android.log.Log;
+import cn.imeth.android.lang.log.Log;
 
 
 /**

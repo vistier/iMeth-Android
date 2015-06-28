@@ -2,6 +2,9 @@ package cn.imeth.android.lang;
 
 import android.app.Application;
 
+import cn.imeth.android.lang.log.Log;
+import cn.imeth.android.lang.log.LogConfig;
+import cn.imeth.android.lang.thread.ThreadPool;
 import cn.imeth.android.lang.utils.Androids;
 
 /**
@@ -14,7 +17,8 @@ public class ImethLangApplication extends Application {
         super.onCreate();
 
         Androids.init(this);
-
+        ThreadPool.initThreadPool(3);
+        Log.initLogger(new LogConfig().setLogFile(true).setLogFilePath(getLogFilePath()));
     }
 
     @Override
@@ -22,5 +26,9 @@ public class ImethLangApplication extends Application {
         super.onTerminate();
 
         Androids.clear();
+    }
+
+    protected String getLogFilePath() {
+        return getExternalFilesDir("").getAbsolutePath();
     }
 }

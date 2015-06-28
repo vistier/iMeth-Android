@@ -1,4 +1,4 @@
-package cn.imeth.android.log;
+package cn.imeth.android.lang.log;
 
 /**
  * 日志配置
