@@ -93,6 +93,10 @@ public abstract class ViewHolderArrayAdapter<Holder extends ViewHolderArrayAdapt
         return values.get(position);
     }
 
+    public List<Entity> getItems() {
+        return values;
+    }
+
     @Override
     public int getCount() {
         return values.size();

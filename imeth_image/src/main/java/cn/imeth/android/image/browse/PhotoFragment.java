@@ -46,8 +46,14 @@ public class PhotoFragment extends Fragment {
         image = (PhotoView) root.findViewById(R.id.image);
         loading = (ProgressBar) root.findViewById(R.id.loading);
 
-        loadImage();
+
         return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadImage();
     }
 
     @Override

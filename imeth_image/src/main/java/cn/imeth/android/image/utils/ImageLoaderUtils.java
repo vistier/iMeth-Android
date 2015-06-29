@@ -10,6 +10,7 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
@@ -30,14 +31,17 @@ public class ImageLoaderUtils {
         DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(Color.parseColor("#999999"))
                 .showImageOnFail(R.mipmap.ic_picture_loadfailed)
-                .cacheInMemory(true).cacheOnDisk(true)
-                .resetViewBeforeLoading(true).considerExifParams(false)
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .resetViewBeforeLoading(true)
+                .considerExifParams(false)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.ARGB_8888).build();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-                .memoryCacheExtraOptions(400, 400)
+                .memoryCacheExtraOptions(800, 800)
                         // default = device screen dimensions
-                .diskCacheExtraOptions(400, 400, null)
+                .diskCacheExtraOptions(800, 800, null)
                 .threadPoolSize(5)
                         // default Thread.NORM_PRIORITY - 1
                 .threadPriority(Thread.NORM_PRIORITY)
@@ -49,10 +53,12 @@ public class ImageLoaderUtils {
                 .memoryCacheSize(2 * 1024 * 1024)
                 .memoryCacheSizePercentage(13)
                 .diskCache(new UnlimitedDiskCache(StorageUtils.getCacheDirectory(context, true)))
-                .diskCacheSize(50 * 1024 * 1024).diskCacheFileCount(100)
+                .diskCacheSize(50 * 1024 * 1024)
+                .diskCacheFileCount(100)
                 .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
                 .imageDownloader(new BaseImageDownloader(context))
                 .imageDecoder(new BaseImageDecoder(false))
+
                 .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
                 .defaultDisplayImageOptions(imageOptions).build();
 

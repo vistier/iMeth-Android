@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-/** ¿â°æ±¾ºÅ */
+/** åº“ç‰ˆæœ¬ */
 version = "1.0.0"
 
 android {
@@ -38,11 +38,9 @@ install {
             project {
                 packaging 'aar'
 
-                //Ìí¼ÓÏîÄ¿ÃèÊö
                 name 'iMeth Android Framework Lang'
                 url SITE_URL
 
-                //ÉèÖÃ¿ªÔ´Ö¤ÊéĞÅÏ¢
                 licenses {
                     license {
                         name 'The Apache Software License, Version 2.0'
@@ -52,7 +50,7 @@ install {
 
                 developers {
                     developer {
-                        id 'iMeht_Adi'
+                        id 'iMeth'
                         name 'ADi'
                         email 'daiwenlong@imeth.cn'
                     }
@@ -91,7 +89,6 @@ artifacts {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-//ÅäÖÃÉÏ´«BintrayÏà¹ØĞÅÏ¢
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
@@ -99,14 +96,11 @@ bintray {
     configurations = ['archives']
 
     pkg {
-        //ÉÏ´«µÄÖĞÑë²Ö¿âÃû³Æ
         repo = "maven"
-        //ÉÏ´«µÄÏîÄ¿µÄÃû×Ö
         name = "iMethAndroid_Lang"
         websiteUrl = SITE_URL
         vcsUrl = GIT_URL
         licenses = ["Apache-2.0"]
-        //ÊÇ·ñ·¢²¼
         publish = true
     }
 }

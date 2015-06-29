@@ -193,6 +193,7 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
         @Override
         public void onPhotoClick(String photo) {
             photo = "file://" + photo;
+
             PhotoBrowseActivity.startActivity(PhotoChooseActivity.this, 0, photo);
         }
 
