@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,6 +38,31 @@ public class PhotoBrowseActivity extends ImethLangActivity implements View.OnCli
 
     public static final String BUNDLE_KEY_IMAGES = "bundle_key_images";
     private static final String BUNDLE_KEY_INDEX = "bundle_key_index";
+    private static final String BUNDLE_KEY_SHOW_DOWNLOAD = "bundle_key_show_download";
+
+    public static void startActivity(Context context, int index, String... images) {
+        startActivity(context, true, index, images);
+    }
+
+    /**
+     *
+     * @param context
+     * @param showDownload 显示不显示下载保存按钮
+     * @param index 优先显示数组中index位置图片
+     * @param images 图片数据
+     */
+    public static void startActivity(Context context, boolean showDownload, int index, String... images) {
+
+        index = index < 0 ? 0 : index;
+        index = index >= images.length ? images.length : index;
+
+        Intent intent = new Intent();
+        intent.setClass(context, PhotoBrowseActivity.class);
+        intent.putExtra(BUNDLE_KEY_INDEX, index);
+        intent.putExtra(BUNDLE_KEY_IMAGES, images);
+        intent.putExtra(BUNDLE_KEY_SHOW_DOWNLOAD, showDownload);
+        context.startActivity(intent);
+    }
 
     ViewPager viewpager;
     TextView tvPhotoIndex;
@@ -47,22 +74,26 @@ public class PhotoBrowseActivity extends ImethLangActivity implements View.OnCli
 
     private int index;
 
-    public static void startActivity(Context context, int index, String... images) {
-
-        index = index < 0 ? 0 : index;
-        index = index >= images.length ? images.length : index;
-
-        Intent intent = new Intent();
-        intent.setClass(context, PhotoBrowseActivity.class);
-        intent.putExtra(BUNDLE_KEY_INDEX, index);
-        intent.putExtra(BUNDLE_KEY_IMAGES, images);
-        context.startActivity(intent);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_browse_activity);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            View decorView = getWindow().getDecorView();
+            // Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+
+        if (getActionBar() != null) {
+            getActionBar().hide();
+        }
+
+        getWindow().setBackgroundDrawable(null);
 
         if (!ImageLoaderUtils.isInited()) {
             ImageLoaderUtils.init(this);
@@ -88,6 +119,11 @@ public class PhotoBrowseActivity extends ImethLangActivity implements View.OnCli
         if (intent != null) {
             index = intent.getIntExtra(BUNDLE_KEY_INDEX, 1);
             imageUrls = intent.getStringArrayExtra(BUNDLE_KEY_IMAGES);
+
+            if (!intent.getBooleanExtra(BUNDLE_KEY_SHOW_DOWNLOAD, true)) {
+                findViewById(R.id.ll_download).setVisibility(View.GONE);
+            }
+
         }
         setIndex();
         adapter.add(imageUrls);

@@ -17,6 +17,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -194,7 +195,14 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
         public void onPhotoClick(String photo) {
             photo = "file://" + photo;
 
-            PhotoBrowseActivity.startActivity(PhotoChooseActivity.this, 0, photo);
+            List<String> items = adapter.getItems();
+            List<String> photos = new ArrayList<String>();
+
+            for (String p : items) {
+                photos.add("file://" + adapter.folder + File.separator + p);
+            }
+
+            PhotoBrowseActivity.startActivity(PhotoChooseActivity.this, false, photos.indexOf(photo), photos.toArray(new String[0]));
         }
 
         @Override
