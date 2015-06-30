@@ -86,6 +86,8 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
 
         initIntent();
 
+        adapter = new PhotoAdapter(this, "", maxSelectNum);
+
         getImages();
         initViews();
         initEvent();
@@ -120,10 +122,13 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
             @Override
             protected void onPostExecute(List<PhotoFolder> folders) {
                 Log.v("imeth", "onPostExecute" + folders.size());
+                if(!folders.isEmpty()) {
+                    photoFolderListPopupWindow.setData(folders);
 
-                photoFolderListPopupWindow.setData(folders);
+                    onSelected(folders.get(0));
+                } else {
 
-                onSelected(folders.get(0));
+                }
                 progressDialog.dismiss();
             }
         }.execute();
@@ -177,8 +182,10 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
         File photoFolder = new File(folder.dir);
         List<String> photos = Arrays.asList(photoFolder.list(ContentResolvers.imageFileFilter));
 
-        adapter = new PhotoAdapter(this, folder.dir, maxSelectNum);
-        adapter.addAll(photos);
+        //adapter = new PhotoAdapter(this, folder.dir, maxSelectNum);
+        adapter.folder = folder.dir;
+        adapter.reset(photos);
+        //adapter.addAll(photos);
         adapter.listener = onPhotoClickListener;
         gridView.setAdapter(adapter);
 

@@ -114,7 +114,7 @@ public class Androids {
 
     public static Toast makeText(CharSequence message) {
 
-        if (toasts != null) {
+        if (toasts == null) {
             initToast();
         }
 
