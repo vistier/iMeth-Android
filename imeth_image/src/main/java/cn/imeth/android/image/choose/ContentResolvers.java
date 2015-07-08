@@ -28,17 +28,17 @@ public class ContentResolvers {
         // 只查询jpeg和png图片
         Cursor cursor = resolver.query(photoUri,
                 null,
-                MediaStore.Images.Media.MIME_TYPE + "=? or " + MediaStore.Images.Media.MIME_TYPE + "=?",
-                new String[]{"image/jpge", "image/png"},
+                "",//MediaStore.Images.Media.MIME_TYPE + "=? or " + MediaStore.Images.Media.MIME_TYPE + "=?",
+                new String[]{},
                 MediaStore.Images.Media.DATE_MODIFIED);
 
         while (cursor.moveToNext()) {
             // 图片路径
             String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
 
-            if (firstPhoto == null) {
+            //if (firstPhoto == null) {
                 firstPhoto = path;
-            }
+            //}
 
             File folder = new File(path).getParentFile();
             if (folder == null) {

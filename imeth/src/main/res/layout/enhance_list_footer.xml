@@ -20,7 +20,7 @@
         android:background="@android:color/transparent"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_margin="8dp"
-        android:textColor="@color/gray" />
+        android:textColor="@android:color/darker_gray" />
         <!-- android:text="@string/enhance_list_footer_more_text" -->
 
 </LinearLayout>

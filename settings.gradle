@@ -1,6 +1,7 @@
-include ':app', ':imeth_animation',
+include ':app',
 
         ':imeth',
+        ':imeth_animation',
         ':imeth_camera',
         ':imeth_image',
         ':imeth_image_slider',
@@ -8,6 +9,7 @@ include ':app', ':imeth_animation',
         ':imeth_log4j',
         ':imeth_recycler_view_pager',
         ':imeth_video_play',
+        ':imeth_tree_view',
 
         ':arcmenu',
         ':phoneview',

@@ -20,6 +20,6 @@
         <item name="shadow_bottom">@drawable/shadow_bottom</item>
     </style>
 
-
     <attr name="SwipeBackLayoutStyle" format="reference"/>
+
 </resources>

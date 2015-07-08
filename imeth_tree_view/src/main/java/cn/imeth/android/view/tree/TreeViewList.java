@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import cn.imeth.android.R;
+import cn.imeth.android.view.tree.R;
 
 /**
  * Tree view, expandable multi-level.

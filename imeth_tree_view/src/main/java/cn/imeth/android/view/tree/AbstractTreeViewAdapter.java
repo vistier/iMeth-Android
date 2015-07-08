@@ -15,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
-import cn.imeth.android.R;
-
 /**
  * Adapter used to feed the table view.
  *
@@ -223,7 +221,7 @@ public abstract class AbstractTreeViewAdapter<T> extends BaseAdapter {
 
 	private Drawable getDrawableOrDefaultBackground(final Drawable r) {
 		if (r == null) {
-			return context.getResources().getDrawable(R.drawable.list_selector_background).mutate();
+			return context.getResources().getDrawable(R.drawable.tree_view_selector_background).mutate();
 		} else {
 			return r;
 		}

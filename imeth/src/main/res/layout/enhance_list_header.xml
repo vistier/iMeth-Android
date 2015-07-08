@@ -29,6 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="6dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/gray" />
+        android:textColor="@android:color/darker_gray" />
 
 </RelativeLayout>
