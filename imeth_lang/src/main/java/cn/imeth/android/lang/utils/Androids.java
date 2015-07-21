@@ -3,6 +3,7 @@ package cn.imeth.android.lang.utils;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -37,10 +38,22 @@ public class Androids {
     private static void initDisplay(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 
+        if (VERSION_CODE >= 13) {
+            Point p = new Point();
+            wm.getDefaultDisplay().getSize(p);
+
+            Display.width = p.x;
+            Display.height = p.y;
+
+        } else {
+            Display.width = wm.getDefaultDisplay().getWidth();
+            Display.height = wm.getDefaultDisplay().getHeight();
+        }
+
+
         DisplayMetrics metrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(metrics);
-        Display.width = wm.getDefaultDisplay().getWidth();
-        Display.height = wm.getDefaultDisplay().getHeight();
+
         Display.density = metrics.density;
         Display.densityDpi = metrics.densityDpi;
         Display.scaledDensity = metrics.scaledDensity;
@@ -96,6 +109,7 @@ public class Androids {
      * <li>API 19 Android 4.4</li>
      * <li>API 20 Android 4.4.2</li>
      * <li>API 21 Android 5.0</li>
+     * <li>API 22 Android 5.1</li>
      * </ul>
      */
     public static int VERSION_CODE = Build.VERSION.SDK_INT;
