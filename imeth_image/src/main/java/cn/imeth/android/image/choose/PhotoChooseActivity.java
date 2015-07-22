@@ -1,9 +1,11 @@
 package cn.imeth.android.image.choose;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -19,6 +21,8 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import cn.imeth.android.image.R;
@@ -102,6 +106,7 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
 
     }
 
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
     private void getImages() {
 
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -178,9 +183,21 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
     }
 
     @Override
-    public void onSelected(PhotoFolder folder) {
-        File photoFolder = new File(folder.dir);
+    public void onSelected(final PhotoFolder folder) {
+        final File photoFolder = new File(folder.dir);
         List<String> photos = Arrays.asList(photoFolder.list(ContentResolvers.imageFileFilter));
+
+        // 排序图片
+        Collections.sort(photos, new Comparator<String>(){
+
+            @Override
+            public int compare(String lhs, String rhs) {
+                File lFile = new File(photoFolder, lhs);
+                File rFile = new File(photoFolder, rhs);
+
+                return ((Long)rFile.lastModified()).compareTo(lFile.lastModified());
+            }
+        });
 
         //adapter = new PhotoAdapter(this, folder.dir, maxSelectNum);
         adapter.folder = folder.dir;

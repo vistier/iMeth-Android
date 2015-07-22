@@ -9,8 +9,12 @@ import android.provider.MediaStore;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 戴文龙(daiwenlong@hequ.com)on 15/6/10.
@@ -18,9 +22,8 @@ import java.util.List;
 public class ContentResolvers {
 
     public static List<PhotoFolder> queryPhoto(Context context) {
-        List<PhotoFolder> folders = new ArrayList<>();
+        Map<String,PhotoFolder> folders = new HashMap<>();
         HashSet<String> completeFolders = new HashSet<>();
-        String firstPhoto = null;
 
         Uri photoUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         ContentResolver resolver = context.getContentResolver();
@@ -32,42 +35,61 @@ public class ContentResolvers {
                 new String[]{},
                 MediaStore.Images.Media.DATE_MODIFIED);
 
+        String photoPath = null;
+        long photoLastModifiedTime = 0;
+
         while (cursor.moveToNext()) {
             // 图片路径
-            String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            photoPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            photoLastModifiedTime = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.DATE_MODIFIED));
 
-            //if (firstPhoto == null) {
-                firstPhoto = path;
-            //}
-
-            File folder = new File(path).getParentFile();
+            File folder = new File(photoPath).getParentFile();
             if (folder == null) {
                 continue;
             }
 
             String folderPath = folder.getAbsolutePath();
             if (completeFolders.contains(folderPath)) {
+
+                PhotoFolder photoFolder = folders.get(folderPath);
+                long time = photoFolder.lastModifiedTime;
+
+                if(time < photoLastModifiedTime) {
+                    photoFolder.lastModifiedTime = photoLastModifiedTime;
+                    photoFolder.firstPhotoPath = photoPath;
+                }
+
                 continue;
             }
 
             completeFolders.add(folderPath);
 
-            PhotoFolder photoFolder;
-            photoFolder = new PhotoFolder();
+            PhotoFolder photoFolder = new PhotoFolder();
             photoFolder.name = folder.getName();
             photoFolder.dir = folderPath;
-            photoFolder.firstPhotoPath = firstPhoto;
-            photoFolder.lastModifiedTime = folder.lastModified();
+            photoFolder.firstPhotoPath = photoPath;
+            //photoFolder.lastModifiedTime = folder.lastModified();
+            photoFolder.lastModifiedTime = photoLastModifiedTime;
 
             int count = folder.list(imageFileFilter).length;
             photoFolder.count = count;
 
-            folders.add(photoFolder);
+            folders.put(folderPath, photoFolder);
         }
 
         cursor.close();
 
-        return folders;
+        List<PhotoFolder> data = new ArrayList<>(folders.values());
+
+        Collections.sort(data, new Comparator<PhotoFolder>() {
+
+            @Override
+            public int compare(PhotoFolder arg0, PhotoFolder arg1) {
+                return ((Long) arg1.lastModifiedTime).compareTo(arg0.lastModifiedTime);
+            }
+        });
+
+        return data;
     }
 
     static FilenameFilter imageFileFilter = new FilenameFilter() {

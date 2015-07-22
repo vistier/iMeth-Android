@@ -39,10 +39,13 @@
         <Button
             android:id="@+id/ok_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_centerInParent="true"
             android:background="@null"
             android:onClick="onResult"
+            android:focusable="true"
             android:text="确定"
             android:textColor="@android:color/white" />
 
