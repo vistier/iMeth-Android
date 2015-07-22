@@ -1,6 +1,7 @@
 package cn.imeth.android.image.choose;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageButton;
@@ -8,7 +9,7 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.io.File;
@@ -92,25 +93,37 @@ public class PhotoAdapter extends ViewHolderArrayAdapter<PhotoAdapter.PhotoViewH
     }
 
     @Override
-    protected void fillViewHolder(PhotoViewHolder holder, String photo, int position) {
+    protected void fillViewHolder(final PhotoViewHolder holder, String photo, int position) {
 
         boolean isSelected = isSelected(photo);
 
         String path = "file://" + folder + File.separator + photo;
 
         holder.photoImg.setColorFilter(isSelected ? SELECTED_COLOR_FILTER : Color.TRANSPARENT);
-        imageLoader.displayImage(path, holder.photoImg, ImageLoaderUtils.getOption(), imageLoadingListener);
+        //imageLoader.displayImage(path, holder.photoImg, ImageLoaderUtils.getOption(), imageLoadingListener);
+        imageLoader.loadImage(path, new ImageSize(100, 100), ImageLoaderUtils.getOption(), new SimpleImageLoadingListener(){
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                holder.photoImg.setImageBitmap(loadedImage);
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                holder.photoImg.setImageResource(R.mipmap.photo_no);
+            }
+        });
 
         holder.selectIc.setImageResource(isSelected ? R.mipmap.photo_selected : R.mipmap.photo_unselected);
 
     }
 
-    ImageLoadingListener imageLoadingListener = new SimpleImageLoadingListener() {
-        @Override
-        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-            ((ImageView) view).setImageResource(R.mipmap.photo_no);
-        }
-    };
+//    ImageLoadingListener imageLoadingListener = new SimpleImageLoadingListener() {
+//        @Override
+//        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//            ((ImageView) view).setImageResource(R.mipmap.photo_no);
+//        }
+//    };
 
     static class PhotoViewHolder extends ViewHolderArrayAdapter.ViewHolder {
         ImageView photoImg;
