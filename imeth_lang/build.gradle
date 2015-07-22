@@ -3,7 +3,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 /** 库版本 */
-version = "1.0.1"
+version = "1.0.2"
 
 android {
     compileSdkVersion 22
@@ -30,7 +30,7 @@ dependencies {
 
 def SITE_URL = "https://github.com/vistier/iMeth-Android"
 def GIT_URL = "https://github.com/vistier/iMeth-Android.git"
-group = "cn.imeth.android.lang"
+group = "cn.imeth.android"
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper paramters
@@ -97,7 +97,7 @@ bintray {
 
     pkg {
         repo = "maven"
-        name = "iMethAndroid-Lang"
+        name = "iMethAndroid_Lang"
         websiteUrl = SITE_URL
         vcsUrl = GIT_URL
         licenses = ["Apache-2.0"]

@@ -1,4 +1,4 @@
-package cn.imeth.android.lang;
+package cn.imeth.android.lang.utils;
 
 import android.content.Context;
 import android.widget.Toast;

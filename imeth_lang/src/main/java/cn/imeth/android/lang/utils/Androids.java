@@ -13,8 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import cn.imeth.android.lang.Toasts;
-
 /**
  * Created by Administrator on 2015/5/8.
  */

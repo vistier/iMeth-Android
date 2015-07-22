@@ -4,13 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * 使用建议:
@@ -40,10 +33,8 @@ import java.util.List;
  *
  * Created by 戴文龙(daiwenlong@imeth.cn) on 2014/12/17.
  */
-public abstract class ViewHolderArrayAdapter<Holder extends ViewHolderArrayAdapter.ViewHolder, Entity> extends BaseAdapter {
+public abstract class ViewHolderArrayAdapter<Holder extends ViewHolderArrayAdapter.ViewHolder, Entity> extends ArrayAdapter<Entity> {
 
-    /** 数组数据 */
-    private List<Entity> values = new ArrayList<>();
     /** item布局 */
     private int viewRes;
 
@@ -88,128 +79,9 @@ public abstract class ViewHolderArrayAdapter<Holder extends ViewHolderArrayAdapt
      */
     protected abstract void fillViewHolder(Holder holder, Entity entity, int position);
 
-    @Override
-    public Entity getItem(int position) {
-        return values.get(position);
-    }
-
-    public List<Entity> getItems() {
-        return values;
-    }
-
-    @Override
-    public int getCount() {
-        return values.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 
     public Context getContext() {
         return context;
-    }
-
-    /**
-     * 重置数量
-     *
-     * @param collection
-     */
-    public void reset(Collection<? extends Entity> collection) {
-        synchronized (ViewHolderArrayAdapter.class) {
-            values.clear();
-            values.addAll(collection);
-        }
-
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 重置数量
-     *
-     * @param items
-     */
-    public void reset(Entity... items) {
-        synchronized (ViewHolderArrayAdapter.class) {
-            values.clear();
-            Collections.addAll(values, items);
-        }
-
-        notifyDataSetChanged();
-    }
-
-
-    /**
-     * 在数组末尾添加数组数据
-     *
-     * @param collection
-     */
-    public void addAll(Collection<? extends Entity> collection) {
-        synchronized (ViewHolderArrayAdapter.class) {
-            values.addAll(collection);
-        }
-
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 在数组末尾添加数组数据
-     *
-     * @param items
-     */
-    public void addAll(Entity... items) {
-        synchronized (ViewHolderArrayAdapter.class) {
-            Collections.addAll(values, items);
-        }
-
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 插入数量到数组index位置
-     *
-     * @param object
-     * @param index
-     */
-    public void insert(Entity object, int index) {
-        synchronized (ViewHolderArrayAdapter.class) {
-            values.add(index, object);
-        }
-
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 移除数组中的对象
-     *
-     * @param object The object to remove.
-     */
-    public void remove(Entity object) {
-        synchronized (ViewHolderArrayAdapter.class) {
-            values.remove(object);
-        }
-
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 清空数组中所有数据
-     */
-    public void clear() {
-        synchronized (ViewHolderArrayAdapter.class) {
-            values.clear();
-        }
-
-        notifyDataSetChanged();
-    }
-
-    public void sort(Comparator<? super Entity> comparator) {
-        synchronized (ViewHolderArrayAdapter.class) {
-            Collections.sort(values, comparator);
-        }
-
-        notifyDataSetChanged();
     }
 
     /**
