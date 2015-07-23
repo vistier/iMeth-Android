@@ -188,14 +188,14 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
         List<String> photos = Arrays.asList(photoFolder.list(ContentResolvers.imageFileFilter));
 
         // 排序图片
-        Collections.sort(photos, new Comparator<String>(){
+        Collections.sort(photos, new Comparator<String>() {
 
             @Override
             public int compare(String lhs, String rhs) {
                 File lFile = new File(photoFolder, lhs);
                 File rFile = new File(photoFolder, rhs);
 
-                return ((Long)rFile.lastModified()).compareTo(lFile.lastModified());
+                return ((Long) rFile.lastModified()).compareTo(lFile.lastModified());
             }
         });
 
@@ -208,7 +208,7 @@ public class PhotoChooseActivity extends ImethLangActivity implements PhotoFolde
 
         countValue.setText(folder.count + "张");
         folderValue.setText(folder.name);
-
+        photoFolderListPopupWindow.adapter.currSelectedPhoneFolder = folder;
         photoFolderListPopupWindow.dismiss();
 
     }

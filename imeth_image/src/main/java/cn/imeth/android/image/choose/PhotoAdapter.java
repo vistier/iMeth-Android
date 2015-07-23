@@ -101,7 +101,7 @@ public class PhotoAdapter extends ViewHolderArrayAdapter<PhotoAdapter.PhotoViewH
 
         holder.photoImg.setColorFilter(isSelected ? SELECTED_COLOR_FILTER : Color.TRANSPARENT);
         //imageLoader.displayImage(path, holder.photoImg, ImageLoaderUtils.getOption(), imageLoadingListener);
-        imageLoader.loadImage(path, new ImageSize(100, 100), ImageLoaderUtils.getOption(), new SimpleImageLoadingListener(){
+        imageLoader.loadImage(path, new ImageSize(200, 200), ImageLoaderUtils.getOption(), new SimpleImageLoadingListener(){
 
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {

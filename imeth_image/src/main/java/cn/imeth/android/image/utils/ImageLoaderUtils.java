@@ -39,9 +39,9 @@ public class ImageLoaderUtils {
                 .bitmapConfig(Bitmap.Config.ARGB_8888).build();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-                .memoryCacheExtraOptions(800, 800)
+                .memoryCacheExtraOptions(1280, 1280)
                         // default = device screen dimensions
-                .diskCacheExtraOptions(800, 800, null)
+                .diskCacheExtraOptions(1280, 1280, null)
                 .threadPoolSize(5)
                         // default Thread.NORM_PRIORITY - 1
                 .threadPriority(Thread.NORM_PRIORITY)
@@ -53,7 +53,7 @@ public class ImageLoaderUtils {
                 .memoryCacheSize(2 * 1024 * 1024)
                 .memoryCacheSizePercentage(13)
                 .diskCache(new UnlimitedDiskCache(StorageUtils.getCacheDirectory(context, true)))
-                .diskCacheSize(50 * 1024 * 1024)
+                .diskCacheSize(100 * 1024 * 1024)
                 .diskCacheFileCount(100)
                 .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
                 .imageDownloader(new BaseImageDownloader(context))

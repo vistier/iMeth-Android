@@ -18,6 +18,8 @@ public class PhotoFolderItemAdapter extends ViewHolderArrayAdapter<PhotoFolderIt
 
     private ImageLoader imageLoader;
 
+    PhotoFolder currSelectedPhoneFolder;
+
     public PhotoFolderItemAdapter(Context context) {
         super(context, R.layout.photo_folder_list_item_adapter);
         imageLoader = ImageLoader.getInstance();
@@ -31,18 +33,22 @@ public class PhotoFolderItemAdapter extends ViewHolderArrayAdapter<PhotoFolderIt
         holder.folderImg = (ImageView) view.findViewById(R.id.folder_img);
         holder.nameValue = (TextView) view.findViewById(R.id.name_value);
         holder.countValue = (TextView) view.findViewById(R.id.count_value);
+        holder.selectedIc = view.findViewById(R.id.selected_ic);
 
         return holder;
     }
 
     @Override
-    protected void fillViewHolder(PhotoFolderViewHolder holder,PhotoFolder folder, int position) {
+    protected void fillViewHolder(PhotoFolderViewHolder holder, PhotoFolder folder, int position) {
 
         // 设置view
         holder.nameValue.setText(folder.name);
         holder.countValue.setText(folder.count + "张");
 
-        imageLoader.displayImage("file://"+folder.firstPhotoPath, holder.folderImg, ImageLoaderUtils.getOption());
+        imageLoader.displayImage("file://" + folder.firstPhotoPath, holder.folderImg, ImageLoaderUtils.getOption());
+
+        if(currSelectedPhoneFolder!=null)
+        holder.selectedIc.setVisibility(folder.equals(currSelectedPhoneFolder) ? View.VISIBLE : View.INVISIBLE);
 
     }
 
@@ -50,6 +56,7 @@ public class PhotoFolderItemAdapter extends ViewHolderArrayAdapter<PhotoFolderIt
         TextView nameValue;
         TextView countValue;
         ImageView folderImg;
+        View selectedIc;
     }
 
 }
